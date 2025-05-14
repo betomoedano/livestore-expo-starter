@@ -75,14 +75,3 @@ export const noteReactionDeleted = Events.synced({
   name: "v1.NoteReactionDeleted",
   schema: Schema.Struct({ id: Schema.String, deletedAt: Schema.Date }),
 });
-
-export const noteReactionCreated = Events.synced({
-  name: "v1.NoteReactionCreated",
-  schema: Schema.Struct({
-    id: Schema.String,
-    noteId: Schema.String,
-    emoji: Schema.String,
-    type: Schema.String,
-    createdBy: Schema.String,
-  }),
-});

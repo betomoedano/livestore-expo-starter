@@ -114,15 +114,6 @@ const materializers = State.SQLite.materializers(events, {
     reaction.insert({ id, noteId, emoji, type, createdBy }),
   "v1.NoteReactionDeleted": ({ id, deletedAt }) =>
     reaction.update({ deletedAt }).where({ id }),
-  "v1.NoteReactionCreated": ({ id, noteId, emoji, type, createdBy }) =>
-    reaction.insert({
-      id,
-      noteId,
-      emoji,
-      type: type as "regular" | "super",
-      createdBy,
-      createdAt: new Date(),
-    }),
 });
 
 const state = State.SQLite.makeState({ tables, materializers });
