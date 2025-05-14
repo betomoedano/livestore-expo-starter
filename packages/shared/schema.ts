@@ -45,9 +45,6 @@ const reaction = State.SQLite.table({
     id: State.SQLite.text({ primaryKey: true }),
     noteId: State.SQLite.text(),
     emoji: State.SQLite.text(),
-    type: State.SQLite.text({
-      schema: Schema.Literal("regular", "super"),
-    }),
     createdBy: State.SQLite.text({ default: "" }),
     createdAt: State.SQLite.integer({
       nullable: true,
@@ -110,8 +107,8 @@ const materializers = State.SQLite.materializers(events, {
     note.update({ content }).where({ id }),
   "v1.NoteDeleted": ({ id, deletedAt }) =>
     note.update({ deletedAt }).where({ id }),
-  "v1.NoteReacted": ({ id, noteId, emoji, type, createdBy }) =>
-    reaction.insert({ id, noteId, emoji, type, createdBy }),
+  "v1.NoteReacted": ({ id, noteId, emoji, createdBy }) =>
+    reaction.insert({ id, noteId, emoji, createdBy }),
   "v1.NoteReactionDeleted": ({ id, deletedAt }) =>
     reaction.update({ deletedAt }).where({ id }),
 });

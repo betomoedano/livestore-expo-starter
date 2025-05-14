@@ -13,32 +13,22 @@ export const visibleNotes$ = queryDb(
   { label: "visibleNotes" }
 );
 
-export const noteReactions$ = (noteId: string, type: "regular" | "super") =>
-  queryDb(
-    tables.reaction.where({
-      noteId,
-      type,
-    }),
-    { label: `reactions-${noteId}-${type}` }
-  );
-
 export const noteReactionCountsByEmoji$ = (noteId: string) =>
   queryDb(
     {
       query: sql`
-        SELECT
-          emoji,
-          SUM(CASE WHEN type = 'regular' THEN 1 ELSE 0 END) AS regularCount,
-          SUM(CASE WHEN type = 'super' THEN 1 ELSE 0 END) AS superCount
-        FROM reaction
-        WHERE noteId = ?
-        GROUP BY emoji
-      `,
+          SELECT
+            emoji,
+            COUNT(*) AS regularCount,
+            0 AS superCount
+          FROM reaction
+          WHERE noteId = ? AND deletedAt IS NULL
+          GROUP BY emoji
+        `,
       schema: Schema.Array(
         Schema.Struct({
           emoji: Schema.String,
           regularCount: Schema.Number,
-          superCount: Schema.Number,
         })
       ),
       bindValues: [noteId],

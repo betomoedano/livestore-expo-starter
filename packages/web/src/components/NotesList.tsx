@@ -71,13 +71,12 @@ function NoteReactions({ noteId }: { noteId: string }) {
     return null;
   }
 
-  function handleReaction(emoji: string, type: "regular" | "super") {
+  function handleReaction(emoji: string) {
     store.commit(
       events.noteReacted({
         id: nanoid(),
         noteId: noteId,
         emoji: emoji,
-        type: type,
         createdBy: user!.name,
       })
     );
@@ -87,11 +86,11 @@ function NoteReactions({ noteId }: { noteId: string }) {
     <div>
       <div style={dividerStyle} />
       <div style={containerStyle}>
-        {reactionCounts.map(({ emoji, regularCount, superCount }) => (
+        {reactionCounts.map(({ emoji, regularCount }) => (
           <button
             key={emoji}
             style={baseButtonStyle}
-            onClick={() => handleReaction(emoji, "regular")}
+            onClick={() => handleReaction(emoji)}
           >
             <span style={emojiStyle}>{emoji}</span>
             {regularCount > 0 && (
@@ -105,7 +104,7 @@ function NoteReactions({ noteId }: { noteId: string }) {
                 {regularCount}
               </span>
             )}
-            {superCount > 0 && (
+            {/* {superCount > 0 && (
               <span
                 style={{
                   ...noteReactionsStyles.superCountText,
@@ -114,7 +113,7 @@ function NoteReactions({ noteId }: { noteId: string }) {
               >
                 {superCount}
               </span>
-            )}
+            )} */}
           </button>
         ))}
       </div>
