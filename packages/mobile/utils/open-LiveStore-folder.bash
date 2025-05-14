@@ -17,3 +17,9 @@ for UDID in $(xcrun simctl list devices | grep Booted | grep -oE '[0-9A-F-]{36}'
     echo "host.exp.Exponent not installed on $UDID"
   fi
 done
+
+# make it executable
+# chmod +x ./open-LiveStore-folder.bash
+
+# run it
+# ./open-LiveStore-folder.bash
