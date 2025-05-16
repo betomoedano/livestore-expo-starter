@@ -49,9 +49,6 @@ export default function ReactionScreen() {
             </Pressable>
           ))}
         </View>
-        <Text style={[styles.subtitle, { textAlign: "center" }]}>
-          Long press to super react to this note
-        </Text>
       </View>
     </View>
   );

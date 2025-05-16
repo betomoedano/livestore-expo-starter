@@ -19,8 +19,7 @@ export const noteReactionCountsByEmoji$ = (noteId: string) =>
       query: sql`
           SELECT
             emoji,
-            COUNT(*) AS regularCount,
-            0 AS superCount
+            COUNT(*) AS count,
           FROM reaction
           WHERE noteId = ? AND deletedAt IS NULL
           GROUP BY emoji
@@ -28,7 +27,7 @@ export const noteReactionCountsByEmoji$ = (noteId: string) =>
       schema: Schema.Array(
         Schema.Struct({
           emoji: Schema.String,
-          regularCount: Schema.Number,
+          count: Schema.Number,
         })
       ),
       bindValues: [noteId],

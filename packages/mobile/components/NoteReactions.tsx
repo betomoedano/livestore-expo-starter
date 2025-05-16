@@ -12,10 +12,9 @@ import { useQuery, useStore } from "@livestore/react";
 // import { noteReactionCountsByEmoji$ } from "@workshop/shared/queries";
 import { noteReactionsStyles } from "@workshop/shared/styles/note-reactions";
 import { Ionicons } from "@expo/vector-icons";
-import { events, tables } from "@workshop/shared/schema";
-import { nanoid, queryDb, Schema, sql } from "@livestore/livestore";
+import { events } from "@workshop/shared/schema";
+import { nanoid } from "@livestore/livestore";
 import { AuthContext } from "../context/auth";
-import { ReactionParticles } from "./ReactionParticles";
 import * as Haptics from "expo-haptics";
 import { noteReactionCountsByEmoji$ } from "@workshop/shared/queries";
 
@@ -26,11 +25,10 @@ export const NoteReactions = ({ noteId }: { noteId: string }) => {
   const { user } = use(AuthContext);
   const router = useRouter();
 
-  // const reactionCounts = useQuery(noteReactionCountsByEmoji$(noteId));
   const reactionCounts = useQuery(noteReactionCountsByEmoji$(noteId));
 
   return (
-    <View style={{ width: "100%" }}>
+    <View style={{ width: "100%", marginTop: 8 }}>
       <View
         style={{
           borderBottomWidth: StyleSheet.hairlineWidth,
@@ -51,36 +49,25 @@ export const NoteReactions = ({ noteId }: { noteId: string }) => {
           <Ionicons name="happy-outline" size={24} color="gray" />
         </Pressable>
 
-        {reactionCounts.map(({ emoji, regularCount }) => (
-          <Pressable
+        {reactionCounts.map(({ emoji, count }) => (
+          <View
             key={emoji}
             style={noteReactionsStyles.reactionButton as ViewStyle}
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              store.commit(
-                events.noteReacted({
-                  id: nanoid(),
-                  noteId,
-                  emoji,
-                  createdBy: user!.name,
-                })
-              );
-            }}
           >
             <Text style={noteReactionsStyles.emojiText as TextStyle}>
               {emoji}
             </Text>
-            {regularCount > 0 && (
+            {count > 0 && (
               <Text
                 style={[
-                  noteReactionsStyles.regularCountText as TextStyle,
-                  { width: 25, left: 10 },
+                  noteReactionsStyles.countText as TextStyle,
+                  { right: -10, top: -5 },
                 ]}
               >
-                {regularCount}
+                {count}
               </Text>
             )}
-          </Pressable>
+          </View>
         ))}
       </View>
     </View>
