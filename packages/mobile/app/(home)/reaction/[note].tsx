@@ -19,13 +19,12 @@ export default function ReactionScreen() {
     queryDb(tables.note.where({ id: noteId }).first(), { label: "noteById" })
   );
 
-  function handleReaction(emoji: string, type: "regular" | "super") {
+  function handleReaction(emoji: string) {
     store.commit(
       events.noteReacted({
         id: nanoid(),
         noteId: noteId,
         emoji: emoji,
-        type: type,
         createdBy: user!.name,
       })
     );
@@ -45,18 +44,11 @@ export default function ReactionScreen() {
       <View style={{ gap: 6 }}>
         <View style={styles.reactionsContainer}>
           {reactions.map((reaction) => (
-            <Pressable
-              key={reaction}
-              onPress={() => handleReaction(reaction, "regular")}
-              onLongPress={() => handleReaction(reaction, "super")}
-            >
+            <Pressable key={reaction} onPress={() => handleReaction(reaction)}>
               <ReactionItem key={reaction} reaction={reaction} />
             </Pressable>
           ))}
         </View>
-        <Text style={[styles.subtitle, { textAlign: "center" }]}>
-          Long press to super react to this note
-        </Text>
       </View>
     </View>
   );

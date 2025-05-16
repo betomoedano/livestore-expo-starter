@@ -61,7 +61,6 @@ export const noteReacted = Events.synced({
     id: Schema.String,
     noteId: Schema.String,
     emoji: Schema.String,
-    type: Schema.Literal("regular", "super"),
     createdBy: Schema.String,
   }),
 });

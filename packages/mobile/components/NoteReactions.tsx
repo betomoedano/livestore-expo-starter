@@ -9,14 +9,14 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useQuery, useStore } from "@livestore/react";
-import { noteReactionCountsByEmoji$ } from "@workshop/shared/queries";
+// import { noteReactionCountsByEmoji$ } from "@workshop/shared/queries";
 import { noteReactionsStyles } from "@workshop/shared/styles/note-reactions";
 import { Ionicons } from "@expo/vector-icons";
 import { events } from "@workshop/shared/schema";
 import { nanoid } from "@livestore/livestore";
 import { AuthContext } from "../context/auth";
-import { ReactionParticles } from "./ReactionParticles";
 import * as Haptics from "expo-haptics";
+import { noteReactionCountsByEmoji$ } from "@workshop/shared/queries";
 
 const reactionColors = ["#FF7E7E", "#7EB3FF", "#8FD28F", "#FFE07E", "#D7A0FF"];
 
@@ -27,18 +27,8 @@ export const NoteReactions = ({ noteId }: { noteId: string }) => {
 
   const reactionCounts = useQuery(noteReactionCountsByEmoji$(noteId));
 
-  const [activeParticleEmoji, setActiveParticleEmoji] = useState<string | null>(
-    null
-  );
-
-  function handleShowParticles(emoji: string) {
-    setActiveParticleEmoji(emoji);
-    setTimeout(() => {
-      setActiveParticleEmoji(null);
-    }, 1000);
-  }
   return (
-    <View style={{ width: "100%" }}>
+    <View style={{ width: "100%", marginTop: 8 }}>
       <View
         style={{
           borderBottomWidth: StyleSheet.hairlineWidth,
@@ -59,70 +49,25 @@ export const NoteReactions = ({ noteId }: { noteId: string }) => {
           <Ionicons name="happy-outline" size={24} color="gray" />
         </Pressable>
 
-        {reactionCounts.map(({ emoji, regularCount, superCount }) => (
-          <Pressable
+        {reactionCounts.map(({ emoji, count }) => (
+          <View
             key={emoji}
             style={noteReactionsStyles.reactionButton as ViewStyle}
-            onLongPress={() => {
-              handleShowParticles(emoji);
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
-              store.commit(
-                events.noteReacted({
-                  id: nanoid(),
-                  noteId,
-                  emoji,
-                  type: "super",
-                  createdBy: user!.name,
-                })
-              );
-            }}
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              store.commit(
-                events.noteReacted({
-                  id: nanoid(),
-                  noteId,
-                  emoji,
-                  type: "regular",
-                  createdBy: user!.name,
-                })
-              );
-            }}
           >
             <Text style={noteReactionsStyles.emojiText as TextStyle}>
               {emoji}
             </Text>
-            {regularCount > 0 && (
+            {count > 0 && (
               <Text
                 style={[
-                  noteReactionsStyles.regularCountText as TextStyle,
-                  { width: 25, left: 10 },
+                  noteReactionsStyles.countText as TextStyle,
+                  { right: -10, top: -5 },
                 ]}
               >
-                {regularCount}
+                {count}
               </Text>
             )}
-            {superCount > 0 && (
-              <Text
-                style={[
-                  noteReactionsStyles.superCountText as TextStyle,
-                  { width: 25, right: -12, backgroundColor: "orange" },
-                  // { top: 22, width: 25, backgroundColor: "orange" },
-                ]}
-              >
-                {superCount}
-              </Text>
-            )}
-            {activeParticleEmoji === emoji && (
-              <ReactionParticles
-                color={
-                  reactionColors[
-                    Math.floor(Math.random() * reactionColors.length)
-                  ]
-                }
-              />
-            )}
-          </Pressable>
+          </View>
         ))}
       </View>
     </View>

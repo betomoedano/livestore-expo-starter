@@ -80,7 +80,7 @@ export function ReactionParticles({ color }: ReactionParticlesProps) {
   // Create particles in different directions
   const particles = Array.from({ length: 8 }).map((_, i) => {
     const angle = (i / 8) * Math.PI * 2;
-    const distance = 25 + Math.random() * 10;
+    const distance = 45 + Math.random() * 10;
     return {
       id: i,
       color,
