@@ -55,12 +55,23 @@ export const noteContentUpdated = Events.synced({
   schema: Schema.Struct({ id: Schema.String, content: Schema.String }),
 });
 
-export const noteReacted = Events.synced({
+export const noteReacted_v1 = Events.synced({
   name: "v1.NoteReacted",
   schema: Schema.Struct({
     id: Schema.String,
     noteId: Schema.String,
     emoji: Schema.String,
+    createdBy: Schema.String,
+  }),
+});
+
+export const noteReacted = Events.synced({
+  name: "v2.NoteReacted",
+  schema: Schema.Struct({
+    id: Schema.String,
+    noteId: Schema.String,
+    emoji: Schema.String,
+    type: Schema.Literal("regular", "super"),
     createdBy: Schema.String,
   }),
 });

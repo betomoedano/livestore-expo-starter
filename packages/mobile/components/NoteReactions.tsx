@@ -30,12 +30,11 @@ export const NoteReactions = ({ noteId }: { noteId: string }) => {
   const reactionCounts = useQuery(noteReactionCountsByEmoji$(noteId));
 
   return (
-    <View style={{ width: "100%" }}>
+    <View style={{ width: "100%", marginTop: 8 }}>
       <View
         style={{
           borderBottomWidth: StyleSheet.hairlineWidth,
           borderColor: "lightgray",
-          marginVertical: 12,
         }}
       />
       <View style={noteReactionsStyles.container as ViewStyle}>
@@ -51,21 +50,10 @@ export const NoteReactions = ({ noteId }: { noteId: string }) => {
           <Ionicons name="happy-outline" size={24} color="gray" />
         </Pressable>
 
-        {reactionCounts.map(({ emoji, regularCount }) => (
-          <Pressable
+        {reactionCounts.map(({ emoji, regularCount, superCount }) => (
+          <View
             key={emoji}
             style={noteReactionsStyles.reactionButton as ViewStyle}
-            onPress={() => {
-              Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-              store.commit(
-                events.noteReacted({
-                  id: nanoid(),
-                  noteId,
-                  emoji,
-                  createdBy: user!.name,
-                })
-              );
-            }}
           >
             <Text style={noteReactionsStyles.emojiText as TextStyle}>
               {emoji}
@@ -74,13 +62,23 @@ export const NoteReactions = ({ noteId }: { noteId: string }) => {
               <Text
                 style={[
                   noteReactionsStyles.regularCountText as TextStyle,
-                  { width: 25, left: 10 },
+                  { right: -10, top: -5 },
                 ]}
               >
                 {regularCount}
               </Text>
             )}
-          </Pressable>
+            {superCount > 0 && (
+              <Text
+              style={[
+                noteReactionsStyles.regularCountText as TextStyle,
+                { right: -10, bottom: -5, backgroundColor: "orange" },
+              ]}
+            >
+              {superCount}
+            </Text>
+          )}
+          </View>
         ))}
       </View>
     </View>
