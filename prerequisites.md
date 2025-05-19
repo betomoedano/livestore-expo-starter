@@ -19,6 +19,7 @@ Make sure these steps are done ahead of time to be ready to start working on the
 - pnpm installed (https://pnpm.io/installation)
 - Web browser (any modern browser should do)
 - Android Studio and/or XCode setup for local development. Follow the instructions here: https://docs.expo.dev/guides/local-app-development/. We only need these for the sake of using the Android emulator or iOS simulator (having just one is fine, but great if you can setup both).
+- (Strongly recommended) Create a Cloudflare account to deploy your sync-backend. While we'll demonstrate deployment during the workshop, having an account ready will allow you to try it out either during or immediately after the session.
 
 This workshop is compatible with macOS, Windows, and Linux, but macOS is preferred for the iOS simulator access.
 
