@@ -49,7 +49,7 @@ export const NoteReactions = ({ noteId }: { noteId: string }) => {
           <Ionicons name="happy-outline" size={24} color="gray" />
         </Pressable>
 
-        {reactionCounts.map(({ emoji, count }) => (
+        {reactionCounts.map(({ emoji, regularCount, superCount }) => (
           <View
             key={emoji}
             style={noteReactionsStyles.reactionButton as ViewStyle}
@@ -57,14 +57,24 @@ export const NoteReactions = ({ noteId }: { noteId: string }) => {
             <Text style={noteReactionsStyles.emojiText as TextStyle}>
               {emoji}
             </Text>
-            {count > 0 && (
+            {regularCount > 0 && (
               <Text
                 style={[
                   noteReactionsStyles.countText as TextStyle,
                   { right: -10, top: -5 },
                 ]}
               >
-                {count}
+                {regularCount}
+              </Text>
+            )}
+            {superCount > 0 && (
+              <Text
+                style={[
+                  noteReactionsStyles.countText as TextStyle,
+                  { right: -10, bottom: -5, backgroundColor: "orange" },
+                ]}
+              >
+                {superCount}
               </Text>
             )}
           </View>

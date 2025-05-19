@@ -17,7 +17,9 @@ export const noteReactionCountsByEmoji$ = (noteId: string) =>
   queryDb(
     {
       query: sql`
-          SELECT emoji, COUNT(*) AS count
+          SELECT emoji,
+            SUM(CASE WHEN type = 'regular' THEN 1 ELSE 0 END) AS regularCount,
+            SUM(CASE WHEN type = 'super' THEN 1 ELSE 0 END) AS superCount
           FROM reaction
           WHERE noteId = ? AND deletedAt IS NULL
           GROUP BY emoji
@@ -25,7 +27,8 @@ export const noteReactionCountsByEmoji$ = (noteId: string) =>
       schema: Schema.Array(
         Schema.Struct({
           emoji: Schema.String,
-          count: Schema.Number,
+          regularCount: Schema.Number,
+          superCount: Schema.Number,
         })
       ),
       bindValues: [noteId],
