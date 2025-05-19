@@ -252,7 +252,7 @@ Haptics.impactAsync(
 
 ## Next exercise
 
-[Module 02](03-deploy.md)
+[Module 03](03-deploy.md)
 
 ## Bonus
 
