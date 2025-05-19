@@ -12,14 +12,10 @@ import {
 } from "react-native";
 import { Redirect, Stack, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { events, schema, tables } from "@workshop/shared/schema";
+import { events, schema } from "@workshop/shared/schema";
 import { makeCfSync } from "@livestore/sync-cf";
 import { AuthContext } from "../../context/auth.tsx";
 import { loadEnvironment } from "../../utils/load-environment.ts";
-
-// Hardcoded token for testing - valid for 24 hours
-const TEST_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30";
 
 const adapter = makePersistedAdapter({
   sync: { backend: makeCfSync({ url: loadEnvironment() }) },
