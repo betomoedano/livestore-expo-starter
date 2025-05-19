@@ -122,7 +122,7 @@ There's already a query for reactions. It returns the number of reactions on a n
 
 1. In **packages/shared/queries.ts**, update the query for super reaction counts:
 
-```ts
+```diff
 export const noteReactionCountsByEmoji$ = (noteId: string) =>
   queryDb(
     {
@@ -178,19 +178,21 @@ export const noteReactionCountsByEmoji$ = (noteId: string) =>
 3. Directly under the regular reaction badge, add a super reaction badge, which will appear in the _bottom_ right corner of the emoji
 
 ```tsx
-{superCount > 0 && (
+{
+  superCount > 0 && (
     <Text
-    style={[
-      noteReactionsStyles.countText as TextStyle,
-      { right: -10, bottom: -5, backgroundColor: "orange" },
-    ]}
-  >
-    {superCount}
-  </Text>
-)}
+      style={[
+        noteReactionsStyles.countText as TextStyle,
+        { right: -10, bottom: -5, backgroundColor: "orange" },
+      ]}
+    >
+      {superCount}
+    </Text>
+  );
+}
 ```
 
-🏃**Try it.** You should now see regular reaction and super reaction counts separately. 
+🏃**Try it.** You should now see regular reaction and super reaction counts separately.
 
 ## Exercise 3: Fancy animations! Haptics!
 
@@ -204,13 +206,13 @@ In the reaction bottom sheet (**/packages/mobile/app/(home)/reaction/[note].tsx*
 
 ```tsx
 const [emojiPressInProgress, setEmojiPressInProgress] = useState<
-    string | undefined
-  >(undefined);
+  string | undefined
+>(undefined);
 ```
 
 When an animation should be in progress, this state variable will contain the emoji that should show the animation.
 
-2. The animation uses absolute positioning to layer over any siblings in the view hierarchy, so we can just mount it when `emojiPressInProgress` is truthy: 
+2. The animation uses absolute positioning to layer over any siblings in the view hierarchy, so we can just mount it when `emojiPressInProgress` is truthy:
 
 ```diff
  <ReactionItem key={reaction} reaction={reaction} />
@@ -237,16 +239,21 @@ We could get really fancy with long press timing by using a `Gesture.Tap` compon
 4. Finally, let's use `expo-haptics` to add a little tactile buzz to adding a reaction. Inside `handleReaction`, add a short buzz for a regular react and a heavy buzz for a super react:
 
 ```tsx
-Haptics.impactAsync(type === "regular" ? Haptics.ImpactFeedbackStyle.Light : Haptics.ImpactFeedbackStyle.Heavy);
+Haptics.impactAsync(
+  type === "regular"
+    ? Haptics.ImpactFeedbackStyle.Light
+    : Haptics.ImpactFeedbackStyle.Heavy
+);
 ```
 
 ## See the solution
 
-[Solution PR](https://github.com/keith-kurak/expo-router-codemash-2025-starter/pull/1)
+[Solution PR](https://github.com/betomoedano/livestore-expo-starter/pull/3)
 
 ## Next exercise
 
-[Module 02](02-api-routes-and-auth.md)
+[Module 02](03-deploy.md)
 
 ## Bonus
+
 - We could use a lot of the same logic in the bottom sheet inside of **NoteReaction.tsx** to also allow long pressing of an emoji already appearing below the note to also add a super reaction. Try doing this.
