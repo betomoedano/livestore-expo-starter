@@ -4,8 +4,8 @@ Workshop starter template for the Expo / Livestore workshop at Local First Confe
 
 ## How to use this repo
 
-1. Fork the [companion repo](https://github.com/betomoedano/livestore-expo-starter). You'll start working right on the `main` branch.
-2. Start at the first module by opening up the file starting with `01-`.
+1. Fork the [repo](https://github.com/betomoedano/livestore-expo-starter). You'll start working right on the `main` branch.
+2. Start at the first module by opening up the file starting with `/lessons/01-`.
 3. Do the rest of the modules in order.
 
 ## Prerequisites / How to be ready for the workshop
