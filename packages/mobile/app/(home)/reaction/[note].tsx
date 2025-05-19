@@ -1,4 +1,4 @@
-import { use } from "react";
+import { use, useState } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useStore } from "@livestore/react";
@@ -6,7 +6,8 @@ import { events, tables } from "@workshop/shared/schema";
 import { nanoid, queryDb } from "@livestore/livestore";
 import { useRouter } from "expo-router";
 import { AuthContext } from "../../../context/auth";
-
+import { ReactionParticles } from "../../../components/ReactionParticles";
+import * as Haptics from "expo-haptics";
 const reactions = ["👍", "❤️", "🔥", "🚀", "💡", "✨"];
 
 export default function ReactionScreen() {
@@ -14,6 +15,9 @@ export default function ReactionScreen() {
   const router = useRouter();
   const { note: noteId } = useLocalSearchParams() as { note: string };
   const { user } = use(AuthContext);
+  const [emojiPressInProgress, setEmojiPressInProgress] = useState<
+    string | undefined
+  >(undefined);
 
   const note = store.useQuery(
     queryDb(tables.note.where({ id: noteId }).first(), { label: "noteById" })
@@ -23,6 +27,11 @@ export default function ReactionScreen() {
     emoji: string,
     type: "regular" | "super" = "regular"
   ) {
+    Haptics.impactAsync(
+      type === "regular"
+        ? Haptics.ImpactFeedbackStyle.Light
+        : Haptics.ImpactFeedbackStyle.Heavy
+    );
     store.commit(
       events.noteReacted({
         id: nanoid(),
@@ -52,8 +61,13 @@ export default function ReactionScreen() {
               key={reaction}
               onPress={() => handleReaction(reaction)}
               onLongPress={() => handleReaction(reaction, "super")}
+              onPressIn={() => setEmojiPressInProgress(reaction)}
+              onPressOut={() => setEmojiPressInProgress(undefined)}
             >
               <ReactionItem key={reaction} reaction={reaction} />
+              {emojiPressInProgress === reaction ? (
+                <ReactionParticles color="orange" />
+              ) : null}
             </Pressable>
           ))}
         </View>
