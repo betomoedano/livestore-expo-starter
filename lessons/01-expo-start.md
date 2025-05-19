@@ -137,7 +137,7 @@ Let's change the store ID's, in the process learning a little bit about the Live
 
 1. In the mobile app, go to **app/(home)/\_layout.tsx**. This is the root layout for any screen that is after the login screen, which is where Livestore syncing is in scope. In Expo Router, a layout is what is rendered before any individual screen inside that folder is rendered. So, it's a useful place for wrapping all or part of the app in context that will be available on any descendent screen.
 2. Notice that the entire layout is wrapped in the `LiveStoreProvider`. This defines the active store, the sync connection, and provides various handlers for Livestore events.
-3. The fixed `expo-club` store ID is being passed into the `LiveStoreProvider`. Change that to `user.name`.
+3. We use different `storeIds` in prod and local to avoid conflicts. If we use the same `storeId` across environments, LiveStore will try to sync local data created in a different environment, which causes issues. That’s why we separate them. Now, instead of using 'http' or 'https', we can safely set the storeId to something different like `user.name`
 
 🏃**Try it.** The notes should clear out. You're working on a new store of notes.
 
