@@ -19,12 +19,16 @@ export default function ReactionScreen() {
     queryDb(tables.note.where({ id: noteId }).first(), { label: "noteById" })
   );
 
-  function handleReaction(emoji: string) {
+  function handleReaction(
+    emoji: string,
+    type: "regular" | "super" = "regular"
+  ) {
     store.commit(
       events.noteReacted({
         id: nanoid(),
         noteId: noteId,
         emoji: emoji,
+        type: type,
         createdBy: user!.name,
       })
     );
@@ -44,7 +48,11 @@ export default function ReactionScreen() {
       <View style={{ gap: 6 }}>
         <View style={styles.reactionsContainer}>
           {reactions.map((reaction) => (
-            <Pressable key={reaction} onPress={() => handleReaction(reaction)}>
+            <Pressable
+              key={reaction}
+              onPress={() => handleReaction(reaction)}
+              onLongPress={() => handleReaction(reaction, "super")}
+            >
               <ReactionItem key={reaction} reaction={reaction} />
             </Pressable>
           ))}
