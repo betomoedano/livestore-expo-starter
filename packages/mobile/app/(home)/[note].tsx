@@ -8,18 +8,10 @@ import { queryDb } from "@livestore/livestore";
 export default function Note() {
   const { store } = useStore();
   const { note: noteId } = useLocalSearchParams() as { note: string };
-  const titleInputRef = useRef<TextInput>(null);
 
   const note = store.useQuery(
     queryDb(tables.note.where({ id: noteId }).first(), { label: "noteById" })
   );
-
-  useEffect(() => {
-    // Focus the title input when component mounts
-    if (titleInputRef.current) {
-      titleInputRef.current.focus();
-    }
-  }, []);
 
   const handleEditTitle = (title: string) => {
     store.commit(events.noteTitleUpdated({ id: noteId, title }));
@@ -39,7 +31,8 @@ export default function Note() {
       <View style={styles.container}>
         <View style={styles.noteCard}>
           <TextInput
-            ref={titleInputRef}
+            autoFocus
+            autoCorrect={false}
             style={styles.title}
             value={note.title ?? ""}
             onChangeText={handleEditTitle}
@@ -78,7 +71,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#1f2937",
     marginBottom: 4,
-    textTransform: "capitalize",
   },
   content: {
     fontSize: 16,
