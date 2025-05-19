@@ -49,13 +49,13 @@ export const Note: React.FC<INote> = ({
         <Text style={noteItemStyles.content} numberOfLines={3}>
           {content || "No content"}
         </Text>
-        <Text style={noteItemStyles.content}>
+        <Text style={[noteItemStyles.content, { marginTop: 4 }]}>
           {`Created by ${createdBy || "Unknown"} - ${new Date(createdAt).toLocaleDateString()} ${new Date(createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`}
         </Text>
 
-        {/* <Pressable onPress={handleDeleteNote}>
+        <Pressable onPress={handleDeleteNote}>
           <Text>Delete</Text>
-        </Pressable> */}
+        </Pressable>
         <NoteReactions noteId={id} />
       </View>
     </Link>
