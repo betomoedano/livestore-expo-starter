@@ -17,9 +17,7 @@ export const noteReactionCountsByEmoji$ = (noteId: string) =>
   queryDb(
     {
       query: sql`
-          SELECT
-            emoji,
-            COUNT(*) AS count,
+          SELECT emoji, COUNT(*) AS count
           FROM reaction
           WHERE noteId = ? AND deletedAt IS NULL
           GROUP BY emoji
