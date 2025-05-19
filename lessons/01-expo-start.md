@@ -214,10 +214,6 @@ const visibleNotes = useQuery(queryDb(
 
 5. Remove this condition so the query goes back to normal (it'll help for the rest of the workshop).
 
-## See the solution
-
-[Solution PR](https://github.com/keith-kurak/expo-router-codemash-2025-starter/pull/1)
-
 ## Next exercise
 
-[Module 02](02-api-routes-and-auth.md)
+[Module 02](02-add-a-feature.md)
