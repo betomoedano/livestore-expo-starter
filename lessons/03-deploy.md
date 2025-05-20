@@ -19,6 +19,7 @@ Let's learn how to deploy mobile apps with Expo. This part is a little tricky fo
 - Deploy the web frontend to EAS Hosting
 
 ### Useful links
+
 - [Getting started with Cloudflare Durable Objects](https://developers.cloudflare.com/durable-objects/get-started/)
 
 # Exercises
@@ -39,11 +40,11 @@ A Durable Object combines compute with storage into a single Cloudflare worker. 
 
 6. Copy the database ID into **wrangler.toml** under `[[d1_databases]]`
 
-> Also, set `new_sqlite_classes = ["WebSocketServer"]` under `[[migrations]]` in **wrangler.toml** in order to use the free Durable Objects offering.
+> Also, set `new_sqlite_classes = ["SyncBackend"]` under `[[migrations]]` in **wrangler.toml** in order to use the free Durable Objects offering.
 
 7. Deploy the durable object worker with `npx wrangler deploy`
 
-8. Update your environment variable(s)  to use your new sync server URL. It will look something like `https://websocket-server.[your subdomain].workers.dev`.
+8. Update your environment variable(s) to use your new sync server URL. It will look something like `https://websocket-server.[your subdomain].workers.dev`.
 
 🏃**Try it.** You should be able to point your mobile frontend to the URL for your worker and start syncing against it. But... you may want to hang on for a second, because we're going to work on setting up some environments for this.
 
@@ -53,7 +54,7 @@ Until now, you've been testing your mobile app in Expo Go. This is a great way t
 
 This is how Expo Go works. It's a fixed runtime that happens to be compatible with a good bit of React Native JavaScript. But, there's a lot of packages that aren't in Expo Go that you might want to use (In app purchase is a good example). However, being able to run your code from a development server in Expo Go is pretty convenient. How do we get the best of both worlds?
 
-The answer is a **development build**. This is just a separate build of your app that includes the same app launcher interface as Expo Go, and can thus run any bundle that is compatible with its runtime. Except now, the runtime is completely up to you. You can add native code to your app, rebuild the development build, and continue working just like you were using Expo Go. 
+The answer is a **development build**. This is just a separate build of your app that includes the same app launcher interface as Expo Go, and can thus run any bundle that is compatible with its runtime. Except now, the runtime is completely up to you. You can add native code to your app, rebuild the development build, and continue working just like you were using Expo Go.
 
 To get a development build, we just need to install the `expo-dev-client` package and then create a debug build of our app.
 
@@ -69,12 +70,10 @@ However, we can make an **app.config.js** file, which makes that configuration d
 
 ```js
 export default ({ config }) => {
-
   return {
     ...config,
-  }
+  };
 };
-
 ```
 
 This will cause the default values to come from **app.js**, and we only have to customize what is unique about each one.
@@ -82,37 +81,38 @@ This will cause the default values to come from **app.js**, and we only have to 
 2. Add these customization points based on `APP_VARIANT`:
 
 ```js
-  function getShortModiferForAppVariant() {
-    const appVariant = process.env.APP_VARIANT;
+function getShortModiferForAppVariant() {
+  const appVariant = process.env.APP_VARIANT;
 
-    if (appVariant === "production") {
-      return ""
-    }
-    if (appVariant === "preview" ) {
-      return "preview"
-    }
-    if (appVariant === "development") {
-      return "development"
-    }
-    return ""
+  if (appVariant === "production") {
+    return "";
   }
-
-  const bundleModifer = getShortModifierForAppVariant();
-
-  const nameModifier = bundleModifier !== "" ? (bundlerModifier.toUpperCase() + " ") : "";
-
-  return {
-    ...config,
-    name: nameModifier + config.name,
-    ios: {
-      ...config.ios,
-      bundleIdentifier: config.ios.bundleIdentifier + bundleModifier,
-    },
-    android: {
-      ...config.android,
-      package: config.android.package + bundleModifier,
-    }
+  if (appVariant === "preview") {
+    return "preview";
   }
+  if (appVariant === "development") {
+    return "development";
+  }
+  return "";
+}
+
+const bundleModifer = getShortModifierForAppVariant();
+
+const nameModifier =
+  bundleModifier !== "" ? bundlerModifier.toUpperCase() + " " : "";
+
+return {
+  ...config,
+  name: nameModifier + config.name,
+  ios: {
+    ...config.ios,
+    bundleIdentifier: config.ios.bundleIdentifier + bundleModifier,
+  },
+  android: {
+    ...config.android,
+    package: config.android.package + bundleModifier,
+  },
+};
 ```
 
 3. Update the **package.json** `dev` script to use `APP_VARIANT=development`:
@@ -154,11 +154,13 @@ EXPO_PUBLIC_LIVESTORE_SYNC_URL=[your livestore sync url]
 ```
 
 4. Setup the following enviroment variables for `preview`:
+
 ```
 APP_VARIANT=preview
 ```
 
 5. Setup the following enviroment variables for `production`:
+
 ```
 APP_VARIANT=production
 ```
@@ -200,7 +202,7 @@ Apple doesn't allow sideloading. You need an Apple Developer account to deploy t
 - Testflight / Store deployment (upload to App Store Connect, download via Testflight app (pre-prod) or App Store (prod))
 - Ad hoc distribution (register a device ID to a provisioning profile, which is then used when building the app, so all eligable devices for installation are defined at build time)
 
-By default, the `development` and `preview` profiles will use ad-hoc distribution. Prior to building, you will need to register devices so they can be included in the provisioning profile when built. 
+By default, the `development` and `preview` profiles will use ad-hoc distribution. Prior to building, you will need to register devices so they can be included in the provisioning profile when built.
 
 The easiest way to do this is with the `eas device:create` command. Run this to generate a link that you can give to everyone who will run your app. They can follow the prompts, and it will register their device ID on EAS. Then, next time you build, that device ID will be available to be included with your build.
 
