@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "dependencies": {
-    "@livestore/sync-cf": "0.3.0-dev.47",
+    "@livestore/sync-cf": "0.3.0-dev.51",
     "jose": "^6.0.10"
   },
   "devDependencies": {

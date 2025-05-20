@@ -3,7 +3,7 @@ import * as jose from "jose";
 
 const JWT_SECRET = "a-string-secret-at-least-256-bits-long";
 
-export class WebSocketServer extends makeDurableObject({
+export class SyncBackend extends makeDurableObject({
   onPush: async (message) => {
     console.log("onPush", message.batch);
   },
