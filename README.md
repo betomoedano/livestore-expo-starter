@@ -2,7 +2,7 @@
 
 A modern monorepo project featuring a web application, mobile Expo app, and sync server for real-time data synchronization.
 
-Refer to [Local First Conf 2025 Workshop: Expo | Livestore](https://github.com/keith-kurak/expo-local-first-conf-2025-lessons/tree/main) to follow the workshop.
+Refer to the [/lessons](/lessons/) directory for step-by-step workshop instructions and exercises.
 
 ## Project Structure
 
@@ -17,6 +17,7 @@ This project is organized as a monorepo using npm workspaces with the following 
 
 - [Node.js](https://nodejs.org/) (Latest LTS version recommended)
 - [pnpm](https://pnpm.io/) - Used as package manager and runtime
+- [Set up your environment](https://docs.expo.dev/get-started/set-up-your-environment/?mode=expo-go&platform=ios&device=simulated) - Needed to run simulators/emulators in your computer
 
 ## Getting Started
 
