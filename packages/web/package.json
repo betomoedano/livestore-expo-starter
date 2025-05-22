@@ -11,12 +11,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@livestore/adapter-web": "0.3.0-dev.51",
-    "@livestore/devtools-vite": "0.3.0-dev.51",
-    "@livestore/livestore": "0.3.0-dev.51",
-    "@livestore/react": "0.3.0-dev.51",
-    "@livestore/sync-cf": "0.3.0-dev.51",
-    "@livestore/utils": "0.3.0-dev.51",
+    "@livestore/adapter-web": "0.3.0",
+    "@livestore/devtools-vite": "0.3.0",
+    "@livestore/livestore": "0.3.0",
+    "@livestore/react": "0.3.0",
+    "@livestore/sync-cf": "0.3.0",
+    "@livestore/utils": "0.3.0",
     "@livestore/wa-sqlite": "1.0.5-dev.1",
     "@tailwindcss/vite": "^4.1.4",
     "@tanstack/react-router": "^1.117.0",
