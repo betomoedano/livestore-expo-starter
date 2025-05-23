@@ -111,6 +111,9 @@ Both the web and mobile apps have their own environment variables that are used 
 > [!NOTE]
 > There is also a LiveStore chrome extension available for web that you can download from the [Releases page](https://github.com/livestorejs/livestore/releases). It will be published to the extensions marketplace soon.
 
+> [!NOTE]
+> When switching environments, besides changing the URL, it's good to also change the Store ID so your app doesn't try to push data or pull data meant for one environment to another. This starter repo handles this automatically by prefixing the store ID in non-production, but just something good to know.
+
 ### More debugging: inspect SQLite state
 
 Now that we're running our own local sync server, we can more closely inspect what is going on with it.
