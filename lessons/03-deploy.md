@@ -101,7 +101,7 @@ export default ({ config }) => {
 const bundleModifier = getShortModifierForAppVariant();
 
   const nameModifier =
-    bundleModifier !== "" ? bundlerModifier.toUpperCase() + " " : "";
+    bundleModifier !== "" ? bundleModifier.toUpperCase() + " " : "";
   
   return {
     ...config,
@@ -250,7 +250,7 @@ Quite fortunately with Vite is that it exports production apps in the same forma
 
 2. Run `pnpm run build` to export the app to the **dist** folder
 
-3. Run `eas deploy`
+3. Run `eas deploy --prod`
 
 🏃**Try it.** Try to navigate to the URL that is output by `eas deploy`.
 
