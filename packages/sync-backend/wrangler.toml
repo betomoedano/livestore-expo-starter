@@ -8,12 +8,12 @@ class_name = "SyncBackend"
 
 [[migrations]]
 tag = "v1"
-new_classes = ["SyncBackend"]
+new_sqlite_classes = ["SyncBackend"]
 
 [[d1_databases]]
 binding = "DB"
 database_name = "livestore-db"
-database_id = "4546e240-ec34-4a40-a31f-958a72dac230"
+database_id = "120869b0-bb6f-4d3a-94d5-0761782fc11c"
 
 # Enable logs for observability (Optional, you can remove this section)
 [observability.logs]

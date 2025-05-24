@@ -78,6 +78,7 @@ function NoteReactions({ noteId }: { noteId: string }) {
         noteId: noteId,
         emoji: emoji,
         createdBy: user!.name,
+        type: "regular",
       })
     );
   }
@@ -86,14 +87,14 @@ function NoteReactions({ noteId }: { noteId: string }) {
     <div>
       <div style={dividerStyle} />
       <div style={containerStyle}>
-        {reactionCounts.map(({ emoji, count }) => (
+        {reactionCounts.map(({ emoji, regularCount }) => (
           <button
             key={emoji}
             style={baseButtonStyle}
             onClick={() => handleReaction(emoji)}
           >
             <span style={emojiStyle}>{emoji}</span>
-            {count > 0 && (
+            {regularCount > 0 && (
               <span
                 style={{
                   ...noteReactionsStyles.countText,
@@ -102,7 +103,7 @@ function NoteReactions({ noteId }: { noteId: string }) {
                   top: "-5px",
                 }}
               >
-                {count}
+                {regularCount}
               </span>
             )}
           </button>

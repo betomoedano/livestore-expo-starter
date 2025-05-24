@@ -1,0 +1,9 @@
+{
+  "name": "Live Notes",
+  "slug": "livestore-web-frontend",
+  "extra": {
+    "eas": {
+      "projectId": "a4029b82-b574-46bf-8da7-286e6874864e"
+    }
+  }
+}

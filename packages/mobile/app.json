@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "livestore-expo",
-    "slug": "livestore-expo",
+    "name": "Live Notes",
+    "slug": "livestore-expo-deployed",
+    "owner": "expo-production",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,10 +14,15 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "dev.livestore.livestore-expo"
+      "bundleIdentifier": "dev.livestore.livestore-expodevelopment",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -31,10 +37,14 @@
     },
     "extra": {
       "eas": {
-        "projectId": "a9d0eb9f-acf5-4cf1-ac11-bde0cc766e6f"
+        "projectId": "60ec0edb-3993-4ef1-acc6-ef6d593ceed0"
       }
     },
-    "plugins": ["expo-asset", "expo-sqlite", "expo-router"],
+    "plugins": [
+      "expo-asset",
+      "expo-sqlite",
+      "expo-router"
+    ],
     "experiments": {
       "typedRoutes": true
     }

@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "expo-router/entry",
   "scripts": {
-    "start": "expo start",
-    "dev": "expo start",
+    "start": "APP_VARIANT=development expo start",
+    "dev": "APP_VARIANT=development expo start",
     "android": "expo start --clear --android",
     "ios": "expo start --clear --ios",
     "web": "expo start --web"
@@ -26,6 +26,7 @@
     "expo-asset": "11.1.5",
     "expo-constants": "~17.1.6",
     "expo-crypto": "14.1.4",
+    "expo-dev-client": "~5.1.8",
     "expo-haptics": "~14.1.4",
     "expo-jwt": "^1.8.2",
     "expo-linking": "~7.1.5",
@@ -45,7 +46,6 @@
     "@babel/runtime": "^7.26.0",
     "@types/react": "~19.0.14",
     "babel-plugin-transform-vite-meta-env": "^1.0.3",
-    "eas-cli": "10.2.2",
     "typescript": "5.8.3"
   },
   "private": true
