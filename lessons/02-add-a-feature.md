@@ -162,7 +162,8 @@ export const noteReactionCountsByEmoji$ = (noteId: string) =>
       <Text style={noteReactionsStyles.emojiText as TextStyle}>
         {emoji}
       </Text>
-      {regularCount > 0 && (
+-      {count > 0 && (
++      {regularCount > 0 && (
         <Text
           style={[
             noteReactionsStyles.countText as TextStyle,
@@ -188,7 +189,7 @@ export const noteReactionCountsByEmoji$ = (noteId: string) =>
     >
       {superCount}
     </Text>
-  );
+  )
 }
 ```
 
@@ -220,6 +221,8 @@ When an animation should be in progress, this state variable will contain the em
 </Pressable>
 ```
 
+(The import for `ReactionParticles` is `import { ReactionParticles } from "../../../components/ReactionParticles";`)
+
 We could get really fancy with long press timing by using a `Gesture.Tap` component from `react-native-reanimated`, precisely controlling the duration of the long press, when the animation starts and stops, etc. But we will keep it simple for now, mounting the animation component when a press starts and unmounting it when the press completes. This will be too fast for a short press, but just perfect for a long press.
 
 3. Use `onPressIn` and `onPressOut` to set `emojiPressInProgress` for the duration of the press:
@@ -245,6 +248,8 @@ Haptics.impactAsync(
     : Haptics.ImpactFeedbackStyle.Heavy
 );
 ```
+
+(`import * as Haptics from "expo-haptics";`)
 
 ## See the solution
 
