@@ -45,7 +45,6 @@
     "@babel/runtime": "^7.26.0",
     "@types/react": "~19.0.14",
     "babel-plugin-transform-vite-meta-env": "^1.0.3",
-    "eas-cli": "10.2.2",
     "typescript": "5.8.3"
   },
   "private": true
