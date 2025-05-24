@@ -248,12 +248,14 @@ Quite fortunately with Vite is that it exports production apps in the same forma
 }
 ```
 
-2. Run `pnpm run build` to export the app to the **dist** folder
+2. Update you're environment variable to point to the Cloudflare durable object worker.
 
-3. Run `eas deploy --prod`
+3. Run `pnpm run build` to export the app to the **dist** folder
+
+4. Run `eas deploy --prod`
 
 🏃**Try it.** Try to navigate to the URL that is output by `eas deploy`.
 
 ## See the solution
 
-[Solution PR](https://github.com/keith-kurak/expo-router-codemash-2025-starter/pull/1)
+[Solution PR](https://github.com/betomoedano/livestore-expo-starter/tree/keith/deploy)
