@@ -40,7 +40,7 @@ A Durable Object combines compute with storage into a single Cloudflare worker. 
 
 6. Copy the database ID into **wrangler.toml** under `[[d1_databases]]`
 
-> Also, set `new_sqlite_classes = ["SyncBackend"]` under `[[migrations]]` in **wrangler.toml** in order to use the free Durable Objects offering.
+> Also, set `new_sqlite_classes = ["SyncBackend"]` under `[[migrations]]` in **wrangler.toml** in order to use the free Durable Objects offering. (remove `new_classes`)
 
 7. Deploy the durable object worker with `npx wrangler deploy`
 
@@ -81,7 +81,7 @@ This will cause the default values to come from **app.js**, and we only have to 
 2. Add these customization points based on `APP_VARIANT`:
 
 ```js
-function getShortModiferForAppVariant() {
+function getShortModifierForAppVariant() {
   const appVariant = process.env.APP_VARIANT;
 
   if (appVariant === "production") {
@@ -96,23 +96,26 @@ function getShortModiferForAppVariant() {
   return "";
 }
 
-const bundleModifer = getShortModifierForAppVariant();
+export default ({ config }) => {
 
-const nameModifier =
-  bundleModifier !== "" ? bundlerModifier.toUpperCase() + " " : "";
+const bundleModifier = getShortModifierForAppVariant();
 
-return {
-  ...config,
-  name: nameModifier + config.name,
-  ios: {
-    ...config.ios,
-    bundleIdentifier: config.ios.bundleIdentifier + bundleModifier,
-  },
-  android: {
-    ...config.android,
-    package: config.android.package + bundleModifier,
-  },
-};
+  const nameModifier =
+    bundleModifier !== "" ? bundleModifier.toUpperCase() + " " : "";
+  
+  return {
+    ...config,
+    name: nameModifier + config.name,
+    ios: {
+      ...config.ios,
+      bundleIdentifier: config.ios.bundleIdentifier + bundleModifier,
+    },
+    android: {
+      ...config.android,
+      package: config.android.package + bundleModifier,
+    },
+  };
+}
 ```
 
 3. Update the **package.json** `dev` script to use `APP_VARIANT=development`:
@@ -131,7 +134,7 @@ Let's build and deploy our `development` and `production` builds with EAS Build,
 
 1. If you don't already have one, create an account at https://expo.dev (a free account will do)
 2. Install the EAS CLI (`npm install -g eas-cli`)
-3. Inside **packages/mobile**, run `eas init`. This will setup a project on EAS.
+3. Inside **packages/mobile**, run `eas init`. This will setup a project on EAS. Since we already have a dynamic config, follow the instructions to copy the `projectId` into app.json.
 4. Run `eas build:configure`. This will setup an eas.json file with build profiles for development, preview, and production.
 
 ### Setup environments
@@ -206,6 +209,10 @@ By default, the `development` and `preview` profiles will use ad-hoc distributio
 
 The easiest way to do this is with the `eas device:create` command. Run this to generate a link that you can give to everyone who will run your app. They can follow the prompts, and it will register their device ID on EAS. Then, next time you build, that device ID will be available to be included with your build.
 
+> [NOTE]
+> Add this to any **eas.json** profiles that you would like to be built for an iOS simulator:
+> ```"ios": { "simulator": true }
+
 ### Let's build!
 
 Finally, it's time for us to build! Fortunately, with that setup, it's pretty easy from this point forward to get exactly what we want.
@@ -241,12 +248,14 @@ Quite fortunately with Vite is that it exports production apps in the same forma
 }
 ```
 
-2. Run `pnpm run build` to export the app to the **dist** folder
+2. Update you're environment variable to point to the Cloudflare durable object worker.
 
-3. Run `eas deploy`
+3. Run `pnpm run build` to export the app to the **dist** folder
+
+4. Run `eas deploy --prod`
 
 🏃**Try it.** Try to navigate to the URL that is output by `eas deploy`.
 
 ## See the solution
 
-[Solution PR](https://github.com/keith-kurak/expo-router-codemash-2025-starter/pull/1)
+[Solution PR](https://github.com/betomoedano/livestore-expo-starter/tree/keith/deploy)
