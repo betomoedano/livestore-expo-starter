@@ -89,7 +89,7 @@ Both the web and mobile apps have their own environment variables that are used 
 
 #### In one terminal tab:
 
-1. `cd packages/sync-backend` and run `pnpm run dev` to start the durable object.
+1. `cd packages/sync-backend` and run `pnpm run dev` to start the local durable object worker.
 
 #### In a second terminal tab:
 
@@ -106,7 +106,7 @@ Both the web and mobile apps have their own environment variables that are used 
 
 🏃**Try it.** You should have two clients and one server running, and the clients should be able to sync with each other. Check the terminal of each process to watch syncing in action.
 
-🏃**Try it (2).** This is also a great time to checkout the devtools again. Both the Expo and web clients have them. On web, check in the console logs for the devtools link.
+🏃**Try it (2).** This is also a great time to checkout the devtools again. Both the Expo and web clients have them. On web, check in the console logs for the web devtools link.
 
 > [!NOTE]
 > There is also a LiveStore chrome extension available for web that you can download from the [Releases page](https://github.com/livestorejs/livestore/releases). It will be published to the extensions marketplace soon.
@@ -140,17 +140,17 @@ Let's change the store ID's, in the process learning a little bit about the Live
 
 1. In the mobile app, go to **app/(home)/\_layout.tsx**. This is the root layout for any screen that is after the login screen, which is where Livestore syncing is in scope. In Expo Router, a layout is what is rendered before any individual screen inside that folder is rendered. So, it's a useful place for wrapping all or part of the app in context that will be available on any descendent screen.
 2. Notice that the entire layout is wrapped in the `LiveStoreProvider`. This defines the active store, the sync connection, and provides various handlers for Livestore events.
-3. We use different `storeIds` in prod and local to avoid conflicts. If we use the same `storeId` across environments, LiveStore will try to sync local data created in a different environment, which causes issues. That’s why we separate them. Now, instead of using 'http' or 'https', we can safely set the storeId to something different like `user.name`
+3. We use different `storeIds` in prod and local to avoid conflicts. If we use the same `storeId` across environments, LiveStore will try to sync local data created in a different environment, which causes issues. That’s why we separate them. Now, instead of using 'http' or 'https', we can safely set the storeId to something different like, `user.name` or, more precisely, `user?.name.replace(/[^a-zA-Z0-9-]+/g, "-")`, so the store ID is slugified to Livestore's specifications.
 
 🏃**Try it.** The notes should clear out. You're working on a new store of notes.
 
 Let's do the same thing on the web side.
 
-4. In the web app, go to **src/routes/index.tsx** and find the corresponding `LiveStoreProvider`. Change that to `user.name`. "Login" with the same name on web as you are on mobile.
+4. In the web app, go to **src/routes/index.tsx** and find the corresponding `LiveStoreProvider`. Change that to `user?.name.replace(/[^a-zA-Z0-9-]+/g, "-")`. "Login" with the same name on web as you are on mobile.
 
 🏃**Try it.** Now multiple clients should be syncing against the new store ID.
 
-5. Switch back to `expo-club` on both mobile and web. Now you should be syncing the original store again.
+5. Switch back to the default `storeId` on both mobile and web. Now you should be syncing the original store again.
 
 ### Break the "auth"
 
@@ -168,7 +168,7 @@ if (authToken?.user?.name?.toLowerCase() !== "john") {
 }
 ```
 
-🏃**Try it.** Login as "John", see what happens. Now login as someone else.
+🏃**Try it.** Login as "John", see what happens (the logout button is the "door" icon in the lower left. Now login as someone else. You might not see much because we didn't add much handling for this, but if you check the devtools, non-Johns should be disconnected.
 
 (you'll probably want to remove this code now, unless you want to remain being John)
 
