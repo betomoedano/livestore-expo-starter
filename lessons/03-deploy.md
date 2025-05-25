@@ -209,7 +209,7 @@ By default, the `development` and `preview` profiles will use ad-hoc distributio
 
 The easiest way to do this is with the `eas device:create` command. Run this to generate a link that you can give to everyone who will run your app. They can follow the prompts, and it will register their device ID on EAS. Then, next time you build, that device ID will be available to be included with your build.
 
-> [NOTE]
+> [!NOTE]
 > Add this to any **eas.json** profiles that you would like to be built for an iOS simulator:
 > ```"ios": { "simulator": true }
 
@@ -226,6 +226,25 @@ Run `eas build --profile development --platform [platform]`
 Run `eas build --profile preview --platform [platform]`
 
 We'll use this as a proxy for our production build for the moment. It's the same as our production build, other than that it can be installed via sideloading (Android) or ad-hoc distribution (iOS).
+
+#### Note about production bundling
+
+Currently, even though there's logic in **metro.config.js** to prevent configuring the devtools, just importing the devtools causes an issue on the EAS Build server. To workaround that, I made it a conditional import:
+
+```js
+let addLiveStoreDevtoolsMiddleware;
+if (!process.env.CI){ 
+  addLiveStoreDevtoolsMiddleware = require("@livestore/devtools-expo").addLiveStoreDevtoolsMiddleware;
+}
+
+// ...
+
+if (addLiveStoreDevtoolsMiddleware) {
+  addLiveStoreDevtoolsMiddleware(config, {
+    schemaPath: "../../packages/shared/schema.ts",
+  });
+}
+```
 
 🏃**Try it.** Build for development and preview. Install both on a device. Switch bewteen local development and testing a preproduction standalone version.
 
