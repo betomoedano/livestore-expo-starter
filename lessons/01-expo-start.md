@@ -29,6 +29,9 @@ Let's get the mobile app running in everyone's local environment, pointing to th
 
 To keep things going fast, we're going to use Expo Go to simulate a local React Native development environment. Expo Go is a sandbox environment that can be downloaded right from the App Store, so you don't need to build an app or have an Apple Developer account to get started with building your app. It's a _fixed runtime_, so it can only run certain React Native code, but fortunately everything we're doing today runs in Expo Go.
 
+> [!NOTE] Issues with connecting in these first few exercises?
+> [We have some suggested workarounds here](../connections.md)
+
 ### Initialize the environment and run the app
 
 1. Run `pnpm install` in the root directory.
