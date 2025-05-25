@@ -13,7 +13,7 @@ You will need to use an emulator / simulator when connecting to your local lives
 However, if all you have available is a device with Expo Go, it's still possible to connect to a local dev server via (once again) ngrok.
 
 1. Run the **sync-backend** project
-2. Go to ngrok.com, sign up if you haven't already.
+2. Go to https://ngrok.com, sign up for a free plan if you haven't already.
 3. Go to the setup page: `https://dashboard.ngrok.com/get-started/setup/macos`
 4. Follow the steps there, but when you get to running `ngrok` with an ephemeral domain, run: `ngrok http http://localhost:8087` so you're forwarding the sync backend worker.
 5. In **packages/mobile/.env.local**, set `EXPO_PUBLIC_LIVESTORE_SYNC_URL` to the URL output from the `ngrok` command.
