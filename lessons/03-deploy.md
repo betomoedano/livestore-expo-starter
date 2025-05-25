@@ -211,7 +211,7 @@ The easiest way to do this is with the `eas device:create` command. Run this to 
 
 > [!NOTE]
 > Add this to any **eas.json** profiles that you would like to be built for an iOS simulator:
-> ```"ios": { "simulator": true }
+> ```"ios": { "simulator": true }```
 
 ### Let's build!
 
