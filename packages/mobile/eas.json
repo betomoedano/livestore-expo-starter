@@ -17,7 +17,14 @@
     },
     "production": {
       "environment": "production"
-    }
+    },
+    "preview-simulator": {
+      "distribution": "internal",
+      "environment": "preview",
+      "ios": {
+        "simulator": true
+      }
+    },
   },
   "submit": {
     "production": {}

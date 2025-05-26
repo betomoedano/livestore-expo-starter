@@ -1,5 +1,8 @@
 const { getDefaultConfig } = require("expo/metro-config");
-const { addLiveStoreDevtoolsMiddleware } = require("@livestore/devtools-expo");
+let addLiveStoreDevtoolsMiddleware;
+if (!process.env.CI){ 
+  addLiveStoreDevtoolsMiddleware = require("@livestore/devtools-expo").addLiveStoreDevtoolsMiddleware;
+}
 const {
   wrapWithReanimatedMetroConfig,
 } = require("react-native-reanimated/metro-config");
@@ -24,7 +27,7 @@ config.server.enhanceMiddleware = (middleware) => {
 };
 
 // Add LiveStore Devtools middleware only in a local development environment
-if (!process.env.CI && process.stdout.isTTY) {
+if (addLiveStoreDevtoolsMiddleware) {
   addLiveStoreDevtoolsMiddleware(config, {
     schemaPath: "../../packages/shared/schema.ts",
   });
