@@ -19,7 +19,7 @@ Let's hone in on a thin vertical slice of functionality across Livestore schema 
 
 ### Useful links
 
-- [How Livestore deals with schema changes](https://livestore.dev/reference/rules-of-mutations/)
+- [How Livestore deals with schema changes](https://next.livestore.dev/reference/state/sqlite-schema/)
 
 # Exercises
 
@@ -189,7 +189,7 @@ export const noteReactionCountsByEmoji$ = (noteId: string) =>
     >
       {superCount}
     </Text>
-  )
+  );
 }
 ```
 

@@ -18,8 +18,8 @@ Let's dig into our monorepo containing a Cloudflare durable object worker backen
 
 ### Useful links
 
-- [How Livestore works](https://livestore.dev/evaluation/when-livestore/)
-- [When to use Livestore / how Livestore scales](https://livestore.dev/evaluation/when-livestore/)
+- [How Livestore works](https://next.livestore.dev/evaluation/how-livestore-works/)
+- [When to use Livestore / how Livestore scales](https://next.livestore.dev/evaluation/when-livestore/)
 
 # Exercises
 
@@ -29,7 +29,7 @@ Let's get the mobile app running in everyone's local environment, pointing to th
 
 To keep things going fast, we're going to use Expo Go to simulate a local React Native development environment. Expo Go is a sandbox environment that can be downloaded right from the App Store, so you don't need to build an app or have an Apple Developer account to get started with building your app. It's a _fixed runtime_, so it can only run certain React Native code, but fortunately everything we're doing today runs in Expo Go.
 
-> [!NOTE] 
+> [!NOTE]
 > Issues with connecting in these first few exercises?
 > [We have some suggested workarounds here](../connections.md)
 
@@ -75,7 +75,7 @@ In Live Queries, you can see some of the queries that map to the queries in **pa
 
 Look at the sequence of events as you enter data and others update data, as well. These map to materializers defined in your Livestore configuration. You can see these in **packages/shared/schema.ts**. Each materializer defines a way data can be changed.
 
-This is a good picture of how Livestore fundamentally works - it uses [event sourcing](https://livestore.dev/reference/event-sourcing/), whereby the data is represented as a sequence of immutable changes, or events. The SQLite database is a very efficient "read" model that represents the outcome of applying the events in sequence.
+This is a good picture of how Livestore fundamentally works - it uses [event sourcing](https://next.livestore.dev/evaluation/how-livestore-works/#event-sourcing), whereby the data is represented as a sequence of immutable changes, or events. The SQLite database is a very efficient "read" model that represents the outcome of applying the events in sequence.
 
 Fortunately, Livestore doesn't need to download every event in order to figure out what is going on; it keeps track of a "cursor" so it can know which events it has reconciled and then requests from the sync server any logs after the cursor. It also must download any new logs from the server before uploading its own. In this way, it works like Git to avoid conflicts, by layering changes in a consistent manner.
 
