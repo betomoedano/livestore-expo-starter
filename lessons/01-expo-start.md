@@ -39,7 +39,9 @@ To keep things going fast, we're going to use Expo Go to simulate a local React 
 2. Run `cd packages/mobile` to switch to the mobile app directory.
 3. Run `cp .env.local.example .env.local` to copy the example environment configuration to a local **.env** file.
 
-Notice in the **.env** file is a variable called `EXPO_PUBLIC_LIVESTORE_SYNC_URL`. Make sure this is set to `https://<insert prod url here>`. Variables that start with `EXPO_PUBLIC_` are inlined directly into your code by Metro bundler when you reference them via `process.env`.
+Notice in the **.env** file is a variable called `EXPO_PUBLIC_LIVESTORE_SYNC_URL`. Make sure this is set to `https://livestore-workshop-2025.betomoedano01.workers.dev`
+. Variables that start with `EXPO_PUBLIC_` are inlined directly into your code by Metro bundler when you reference them via `process.env`.
+
 
 4. Run `pnpm run dev` to start the local development environment.
 5. Scan the QR Code that appears in the console with your phone.
