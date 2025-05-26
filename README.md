@@ -2,6 +2,8 @@
 
 A modern monorepo project featuring a web application, mobile Expo app, and sync server for real-time data synchronization.
 
+You can find the presentation slides [here](https://www.figma.com/slides/AGWkVPMesfxSDK6kt302nz/LiveStore-Workshop-2025?node-id=2003-49&t=0yrzDwTf2DU39tVI-1)
+
 Refer to the [/lessons](/lessons/) directory for step-by-step workshop instructions and exercises.
 
 ## Project Structure
