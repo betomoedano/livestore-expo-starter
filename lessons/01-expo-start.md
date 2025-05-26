@@ -18,8 +18,8 @@ Let's dig into our monorepo containing a Cloudflare durable object worker backen
 
 ### Useful links
 
-- [How Livestore works](https://next.livestore.dev/evaluation/how-livestore-works/)
-- [When to use Livestore / how Livestore scales](https://next.livestore.dev/evaluation/when-livestore/)
+- [How Livestore works](https://docs.livestore.dev/evaluation/how-livestore-works/)
+- [When to use Livestore / how Livestore scales](https://docs.livestore.dev/evaluation/when-livestore/)
 
 # Exercises
 
@@ -75,7 +75,7 @@ In Live Queries, you can see some of the queries that map to the queries in **pa
 
 Look at the sequence of events as you enter data and others update data, as well. These map to materializers defined in your Livestore configuration. You can see these in **packages/shared/schema.ts**. Each materializer defines a way data can be changed.
 
-This is a good picture of how Livestore fundamentally works - it uses [event sourcing](https://next.livestore.dev/evaluation/how-livestore-works/#event-sourcing), whereby the data is represented as a sequence of immutable changes, or events. The SQLite database is a very efficient "read" model that represents the outcome of applying the events in sequence.
+This is a good picture of how Livestore fundamentally works - it uses [event sourcing](https://docs.livestore.dev/evaluation/how-livestore-works/#event-sourcing), whereby the data is represented as a sequence of immutable changes, or events. The SQLite database is a very efficient "read" model that represents the outcome of applying the events in sequence.
 
 Fortunately, Livestore doesn't need to download every event in order to figure out what is going on; it keeps track of a "cursor" so it can know which events it has reconciled and then requests from the sync server any logs after the cursor. It also must download any new logs from the server before uploading its own. In this way, it works like Git to avoid conflicts, by layering changes in a consistent manner.
 
