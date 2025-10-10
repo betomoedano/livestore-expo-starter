@@ -10,7 +10,7 @@ export default function Note() {
   const { note: noteId } = useLocalSearchParams() as { note: string };
 
   const note = store.useQuery(
-    queryDb(tables.note.where({ id: noteId }).first(), { label: "noteById" })
+    queryDb(tables.note.where({ id: noteId }), { label: "noteById" })
   );
 
   const handleEditTitle = (title: string) => {

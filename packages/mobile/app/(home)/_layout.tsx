@@ -13,12 +13,12 @@ import {
 import { Redirect, Stack, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { events, schema } from "@workshop/shared/schema";
-import { makeCfSync } from "@livestore/sync-cf";
+import { makeWsSync } from "@livestore/sync-cf/client";
 import { AuthContext } from "../../context/auth.tsx";
 import { loadEnvironment } from "../../utils/load-environment.ts";
 
 const adapter = makePersistedAdapter({
-  sync: { backend: makeCfSync({ url: loadEnvironment() }) },
+  sync: { backend: makeWsSync({ url: loadEnvironment() }) },
 });
 
 const storeId = loadEnvironment().split("://")[0]; // http or https
