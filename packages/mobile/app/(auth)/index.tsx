@@ -16,6 +16,8 @@ export default function AuthIndex() {
           placeholder="Enter your name"
           style={styles.input}
           placeholderTextColor="#6b7280"
+          autoCorrect={false}
+          autoCapitalize="none"
         />
         <Pressable style={styles.button} onPress={() => signIn(name)}>
           <Text style={styles.buttonText}>Join the party</Text>

@@ -35,7 +35,7 @@ export default function RootLayout() {
   return (
     <LiveStoreProvider
       schema={schema}
-      storeId={storeId}
+      storeId={"boop"}
       renderLoading={(_) => <></>}
       renderError={(error: any) => <Text>Error: {error.toString()}</Text>}
       renderShutdown={() => {

@@ -42,7 +42,7 @@ function Index() {
       <h1 className="text-2xl font-bold">Welcome, {user?.name}!</h1>
       <LiveStoreProvider
         schema={schema}
-        storeId={storeId}
+        storeId={"boop"}
         adapter={adapter}
         batchUpdates={unstable_batchedUpdates}
         renderLoading={({ stage }) => <div>Loading... {stage}</div>}
