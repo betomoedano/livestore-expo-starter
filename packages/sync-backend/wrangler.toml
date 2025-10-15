@@ -13,7 +13,7 @@ new_sqlite_classes = ["SyncBackend"]
 [[d1_databases]]
 binding = "DB"
 database_name = "livestore-db"
-database_id = "120869b0-bb6f-4d3a-94d5-0761782fc11c"
+database_id = "0a82e5f7-c56b-4ddd-b5af-1cf7677a82f5"
 
 # Enable logs for observability (Optional, you can remove this section)
 [observability.logs]
